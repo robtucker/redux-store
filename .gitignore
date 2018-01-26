@@ -1,0 +1,26 @@
+# Dependency installation dirs
+/node_modules
+/typings
+
+# Build artifacts
+/dist
+/object
+
+# Application Options to keep from repository
+/app.options.js
+**/*.env
+
+# OS and IDE FILES
+*.DS_Store
+/*.iml
+/.idea
+/.vscode
+/.floo
+/.flooignore
+
+# npm debug logs
+npm-debug.log
+object
+
+# Test artifacts
+/coverage
