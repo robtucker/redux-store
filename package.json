@@ -11,7 +11,7 @@
         "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e '**/*.spec.ts' -e 'node_modules/**/*' -t json",
         "lint:version": "tslint -v",
         "lint:fix": "tslint -p ./tsconfig.json -c ./tslint.json -e '**/*.spec.ts' -e 'node_modules/**/*' --fix",
-        "prepublishOnly": "npm run tsc:compile",
+        "prepublishOnly": "npm test && rm -rf ./dist && npm run tsc:compile",
         "tsc:compile": "tsc",
         "tsc:watch": "tsc --watch --pretty",
         "tsfmt:verify": "tsfmt --verify",
