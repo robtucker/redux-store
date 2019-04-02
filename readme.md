@@ -1,6 +1,8 @@
 # redux-store
 
-Helper for creating redux stores with redux-observable and redux-localstorage
+Helper for creating redux stores with redux-observable and redux-localstorage.
+
+Designed for personal use only.
 
 ### Packages included
 
@@ -27,11 +29,16 @@ Create a configuration object for the store, and then use it:
 
 ```typescript
 import { history, createReduxStore, ReduxStoreConfig } from '@robtucker/redux-store'
-import { Provider } from 'redux'
+import { Provider, combineReducers } from 'redux'
 import { ConnectedRouter } from 'react-router-redux'
+import { combineEpics } from 'redux-observable'
+
+const rootReducer = combineReducers({ [REDUCER_KEY]: testReducer })
+const rootEpic = combineEpics()
+const epicDependencies = {}
 
 const config: ReduxStoreConfig = {
-    storage,
+    window.localStorage,
     rootReducer,
     rootEpic
     epicDependencies,
