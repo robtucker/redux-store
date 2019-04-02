@@ -3,7 +3,7 @@
  */
 import { createStore, applyMiddleware, compose, Middleware, Store, StoreEnhancer } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
-import createHistory from 'history/createBrowserHistory'
+import { History, createBrowserHistory } from 'history'
 import { default as thunk } from 'redux-thunk'
 import { createEpicMiddleware } from 'redux-observable'
 import { createLogger } from 'redux-logger'
@@ -26,7 +26,7 @@ import * as debounce from 'redux-localstorage-debounce'
  * Export a reference to the history so that
  * it can be passed into the Router provider
  */
-export const history = createHistory()
+export const history: History = createBrowserHistory()
 
 /**
  * Standardized way of creating a redux store
@@ -34,7 +34,13 @@ export const history = createHistory()
  *
  * @param config
  */
-export const createReduxStore = (config: ReduxStoreConfig) => {
+export const createReduxStore: (config: ReduxStoreConfig) => Store<any> = (config: ReduxStoreConfig) => {
+    /**
+     * Redux observable epic middleware with dependencies
+     */
+    const epicMiddleware = createEpicMiddleware({
+        dependencies: config.epicDependencies,
+    })
 
     /**
      * The hydrated reducer will contain all the saved data from localstorage
@@ -56,9 +62,7 @@ export const createReduxStore = (config: ReduxStoreConfig) => {
      */
     const middleware: Middleware[] = [
         routerMiddleware(history),
-        createEpicMiddleware(config.rootEpic, {
-            dependencies: config.epicDependencies,
-        }),
+        epicMiddleware,
         thunk,
     ]
 
@@ -88,6 +92,11 @@ export const createReduxStore = (config: ReduxStoreConfig) => {
         hydratedReducer,
         enhancer,
     )
+
+    /**
+     * Run the epic middleware
+     */
+    epicMiddleware.run(config.rootEpic)
 
     return store
 }
