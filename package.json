@@ -1,6 +1,6 @@
 {
     "name": "@robtucker/redux-store",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Configurable Redux store with rxjs",
     "repository": {
         "type": "git",
@@ -12,7 +12,7 @@
         "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e '**/*.spec.ts' -e 'node_modules/**/*' -t json",
         "lint:version": "tslint -v",
         "lint:fix": "tslint -p ./tsconfig.json -c ./tslint.json -e '**/*.spec.ts' -e 'node_modules/**/*' --fix",
-        "prepublishOnly": "npm test && rm -rf ./dist && npm run tsc:compile",
+        "prepublishOnly": "npm test && rm -rf ./dist && npm run build",
         "publish": "npm publish",
         "tsc:watch": "tsc --watch --pretty",
         "tsfmt:verify": "tsfmt --verify",
